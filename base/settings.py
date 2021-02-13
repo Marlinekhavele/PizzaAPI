@@ -25,7 +25,7 @@ SECRET_KEY = 'm0_+qp2(6tr6e5%up$xl%5f!n8we4)j*+r+1&%a2--66*ryog7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['marline-store.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['marline-app.herokuapp.com','127.0.0.1']
 
 
 # Application definition
