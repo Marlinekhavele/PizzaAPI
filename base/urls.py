@@ -21,7 +21,7 @@ from rest_framework.schemas import get_schema_view
 api_v1_docs = [
     path('openapi', get_schema_view(
         title="app",
-        description="App APIs",
+        description="PizzaApp APIs",
         version="1.0.0"
     ), name='openapi-schema'),
     path('docs/',TemplateView.as_view(
@@ -33,5 +33,6 @@ urlpatterns = [
     path('api/v1/', include(api_v1_docs)),
     path('admin/', admin.site.urls),
     path('api/v1/', include('accounts.urls')),
+    path('api/v1/', include('products.urls')),
     
 ]
