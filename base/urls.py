@@ -20,8 +20,8 @@ from rest_framework.schemas import get_schema_view
 
 api_v1_docs = [
     path('openapi', get_schema_view(
-        title="Library store",
-        description="Library APIs",
+        title="app",
+        description="App APIs",
         version="1.0.0"
     ), name='openapi-schema'),
     path('docs/',TemplateView.as_view(
