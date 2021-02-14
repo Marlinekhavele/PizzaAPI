@@ -5,6 +5,8 @@ from accounts.models import Customer, Staff
 from accounts.serializers import CustomerSerializer,StaffSerializer
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAssigned
+
 
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
