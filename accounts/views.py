@@ -4,12 +4,15 @@ from rest_framework.response import Response
 
 from accounts.models import Customer
 from accounts.serializers import CustomerSerializer
+from rest_framework.authentication import BasicAuthentication
+
 from rest_framework.permissions import IsAuthenticated
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    authentication_classes = [BasicAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
 
