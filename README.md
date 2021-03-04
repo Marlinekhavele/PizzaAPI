@@ -3,7 +3,7 @@
 - Python version 3
 - Django
 - Djangorestframework
-###### Running the project locally
+##### Running the project locally
 - Clone the project using git clone
 - Enter the project directory i.e
 cd base
