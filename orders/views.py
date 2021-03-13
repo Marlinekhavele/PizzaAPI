@@ -6,10 +6,8 @@ from orders.serializers import (
     OrderItemSerializer, OrderSerializer,
     OrderCreateSerializer
 )
-from rest_framework.permissions import IsAuthenticated
 
 class CreateOrderView(generics.CreateAPIView):
-    permission_classes = (IsAuthenticated,) 
     queryset = Order.objects.all()
     serializer_class = OrderCreateSerializer
 
@@ -32,7 +30,6 @@ class RetrieveDestroyUpdateOrderView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CreateOrderItemView(generics.CreateAPIView):
-    permission_classes = (IsAuthenticated,) 
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
