@@ -1,9 +1,9 @@
 import uuid
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from accounts.models import Customer
 from products.models import Product, ProductFlavour, ProductSize
+from django.db.models.signals import post_save
 
 
 class Order(models.Model):
@@ -21,7 +21,7 @@ class Order(models.Model):
     updated_date = models.DateField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
     
     def __len__(self):
         return sum(x.quantity for x in self.orderitem_set.all())
@@ -57,3 +57,16 @@ class OrderItem(models.Model):
     class Meta:
         verbose_name = _('Order Item')
         verbose_name_plural = _('Order Items')
+
+
+    def create_order(sender,instance,created,**kwargs):
+        if created:
+            Order.objects.create(customer=instance)
+            print('Order created')
+    post_save.connect(create_order,sender=Customer)
+
+    def update_order(sender,instance,created,**kwargs):
+        if created == False:
+            instance.order.save()
+            print('Order Updated')
+    post_save.connect(update_order,sender=Customer)
