@@ -11,8 +11,6 @@ from orders.signals import create_customer_order, save_customer_order
 class OrdersConfig(AppConfig):
     name = 'orders'
     verbose_name = _('Order')
-
     def ready(self):
         post_save.connect(create_customer_order, sender=User)
         post_save.connect(save_customer_order, sender=User)
-        
