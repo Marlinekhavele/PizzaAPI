@@ -7,7 +7,6 @@ from orders.serializers import (
     OrderCreateSerializer
 )
 import africastalking
-from decouple import config
 
 
 class CreateOrderView(generics.CreateAPIView):
@@ -16,6 +15,7 @@ class CreateOrderView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         order = serializer.save()
+        send_sms(orde.user.phone, "Your order is placed")
         detail_serializer = OrderSerializer(order)
         return Response(detail_serializer.data)
 
@@ -40,18 +40,4 @@ class RetrieveDestroyUpdateOrderItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
     lookup_url_kwarg = 'id'
-
-
-
-username = config('username')
-api_key = config('api_key') 
-africastalking.initialize(username, api_key)
-sms = africastalking.SMS
-response = sms.send("Marline we have received your order!", ["+254700921843","+254742866003"])
-# print(response)
-def on_finish(error, response):
-    if error is not None:
-        raise error
-    # print(response)
-
-sms.send("Marline we have received your order!", ["+254700921843","+254742866003"], callback=on_finish)    
+  
