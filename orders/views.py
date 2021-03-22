@@ -6,7 +6,7 @@ from orders.serializers import (
     OrderItemSerializer, OrderSerializer,
     OrderCreateSerializer
 )
-import africastalking
+from orders.utils.send_sms import send_sms
 
 
 class CreateOrderView(generics.CreateAPIView):
@@ -15,7 +15,7 @@ class CreateOrderView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         order = serializer.save()
-        send_sms(orde.user.phone, "Your order is placed")
+        send_sms([order.customer.phone], "Your order is placed")
         detail_serializer = OrderSerializer(order)
         return Response(detail_serializer.data)
 

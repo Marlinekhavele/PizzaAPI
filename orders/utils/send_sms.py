@@ -1,13 +1,14 @@
 import requests
 import logging
 from django.conf import settings
-from decouple import config
 
 logger = logging.getLogger(__name__)
 
 
 class AfricasTalkingException(Exception):
     pass
+
+
 def send_sms(recipients_list, message):
     """
     Keyword arguments:
@@ -15,19 +16,18 @@ def send_sms(recipients_list, message):
     Return: None
     """
     headers = {
-        "apiKey": config.AFRICAS_TALKING_API_KEY,
+        "apiKey": settings.AFRICAS_TALKING_API_KEY,
         "Content-Type": "application/x-www-form-urlencoded",
         "Accept": "application/json",
     }
     body_content = {
-        "username": config.AFRICAS_TALKING_USERNAME,
+        "username":settings.AFRICAS_TALKING_USERNAME,
         "to": ",".join(recipients_list),
         "message": message,
-        "from": "AFRICASTALKIN",
     }
     try:
         sms_send_request = requests.post(
-            config.AFRICAS_TALKING_URL_ENDPOINT, data=body_content, headers=headers
+            settings.AFRICAS_TALKING_URL_ENDPOINT, data=body_content, headers=headers
         )
         logger.info(sms_send_request.text)
     except AfricasTalkingException as e:
